@@ -1,9 +1,11 @@
-FROM vtajzich/mesosphere-docker-mesos-base	
+FROM mesos-base
 
-# Installing zookeeper.  Seems to be a dependancy to mesos
+# Installing zookeeper. Seems to be a dependancy to mesos
 # Not going to start it on runtime though
-RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install zookeeperd wget apt-transport-https
+RUN    apt-get -y update \
+    && apt-get -y install zookeeperd wget apt-transport-https \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN echo 1 | dd of=/var/lib/zookeeper/myid
 
 # Install mesos.
